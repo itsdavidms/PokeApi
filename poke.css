@@ -1,0 +1,118 @@
+#divAtaque {
+    width: 50%; 
+    margin: 0 auto; 
+    text-align: center;
+    border: 2px solid black;
+    margin-bottom: 50px;
+}
+
+#divAtaque table {
+    /* Estilos de la tabla */
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#divAtaque th {
+    /* Estilos para las celdas de encabezado en la tabla */
+    background-color: #f2f2f2;
+    color: #333;
+    font-weight: bold;
+}
+
+#divAtaque td {
+    /* Estilos para las celdas de datos en la tabla */
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#zonaAtaque{
+    border: 2px solid rgb(0, 0, 0);
+    width: 100%;
+    height: auto;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    background-color: rgb(243, 92, 92);
+}
+#menu{
+    border: 2px solid black;
+    width: 100%;
+    height: auto;
+    text-align: center;
+    background-image: url(./img/banner3.jpg);
+    background-size: cover; /* Hace que la imagen se estire para cubrir todo el contenedor */
+    background-repeat: no-repeat;
+    background-size: 100% 50px;
+}
+
+#contenedorLogo {
+    width: 100%;
+    text-align: center; /* Centrar horizontalmente */
+    height: 150px;
+    background-image: url(./img/banner2.jpg);
+    background-size: cover; /* Hace que la imagen se estire para cubrir todo el contenedor */
+    background-repeat: no-repeat;
+    background-size: 100% 150px;
+}
+
+#logoimg {
+    max-width: 100%; /* Asegura que la imagen no se desborde del contenedor */
+    height: auto; /* Permite que la altura se ajuste automáticamente */
+    height: 150px;
+    border: 5px solid white;
+}
+h1 {
+    color: white;
+    text-align: center; /* Centrar horizontalmente el texto */
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+}
+table{
+    background-color: white;
+}
+#divDefensa {
+    width: 50%; 
+    margin: 0 auto; 
+    text-align: center;
+    border: 2px solid black;
+    margin-bottom: 50px;
+}
+
+#divDefensa table {
+    /* Estilos de la tabla */
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#divDefensa th {
+    /* Estilos para las celdas de encabezado en la tabla */
+    background-color: #f2f2f2;
+    color: #333;
+    font-weight: bold;
+}
+
+#divDefensa td {
+    /* Estilos para las celdas de datos en la tabla */
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#zonaDefensa{
+    border: 2px solid rgb(0, 0, 0);
+    width: 100%;
+    height: 100%;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    background-color: rgb(138, 216, 252);
+}
+#menuTipo{
+    border: 2px solid black;
+    height: 50px;
+    width: 100%;
+}
+
+#selectTipos{
+    width: 100px;
+    height: 50px;
+}
+table img{
+    margin-right: 10px;
+}

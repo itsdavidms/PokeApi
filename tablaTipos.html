@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./poke.css">
+</head>
+
+<body>
+    <div id="contenedorLogo">
+        <img src="./img/logo.png" id="logoimg">
+    </div>
+    <div id="menu">
+        <select id="selectTipos"></select>
+    </div>
+    <div id="zonaAtaque">
+        <h1>Tabla de ataque</h1>
+        <br>
+        <div id="divAtaque">
+
+        </div>
+    </div>
+    <div id="zonaDefensa">
+        <h1>Tabla de defensa</h1>
+        <br>
+        <div id="divDefensa">
+
+        </div>
+    </div>
+    
+    <script>
+
+        rellenarSelect()
+        crearTabla(1)
+
+        let divAtaque = document.getElementById("divAtaque")
+        let divDefensa = document.getElementById("divDefensa")
+        function crearTabla(idPokemon) {
+            fetch(`https://pokeapi.co/api/v2/type/${idPokemon}/`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+
+                    console.log(`Nombre del tipo: ${data.name}`);
+
+                    tablaAtaque(data)
+                    tablaDefensa(data)
+
+                })
+                .catch(error => {
+
+                    console.error('Hubo un problema con la solicitud: ', error);
+                });
+        }
+
+        function tablaAtaque(data) {
+            let ataquesDobleDanio = obtenerdobleDañoAtaca(data);
+            let ataquesInmunes = obtenerinmuneAtaque(data);
+            let ataquesMitadDanio = obtenermitadDañoAtaca(data);
+
+            let table = "<table border='1'>";
+            table += "<tr><th>x2</th><th>Inmune</th><th>/2</th></tr>";
+
+            let maxLength = Math.max(ataquesDobleDanio.length, ataquesInmunes.length, ataquesMitadDanio.length);
+            
+            for (let i = 0; i < maxLength; i++) {
+                table += "<tr>";
+                table += `<td>${ataquesDobleDanio[i] ? `<img src="img/tiposPokemon/${ataquesDobleDanio[i].name}.webp" alt="${ataquesDobleDanio[i].name}">${ataquesDobleDanio[i].name}` : ''}</td>`;
+                table += `<td>${ataquesInmunes[i] ? `<img src="img/tiposPokemon/${ataquesInmunes[i].name}.webp" alt="${ataquesInmunes[i].name}">${ataquesInmunes[i].name}` : ''}</td>`;
+                table += `<td>${ataquesMitadDanio[i] ? `<img src="img/tiposPokemon/${ataquesMitadDanio[i].name}.webp" alt="${ataquesMitadDanio[i].name}">${ataquesMitadDanio[i].name}` : ''}</td>`;
+                table += "</tr>";
+            }
+
+            table += "</table>";
+            divAtaque.innerHTML += table;
+        }
+
+
+
+        function tablaDefensa(data){
+            let ataquesDobleDanio = obtenerdobleDañoDefensa(data);
+            let ataquesInmunes = obtenerinmuneDefensa(data);
+            let ataquesMitadDanio = obtenermitadDañoDefensa(data);
+
+            let table = "<table border='1'>";
+            table += "<tr><th>x2</th><th>Inmune</th><th>/2</th></tr>";
+
+            let maxLength = Math.max(ataquesDobleDanio.length, ataquesInmunes.length, ataquesMitadDanio.length);
+            
+            for (let i = 0; i < maxLength; i++) {
+                table += "<tr>";
+                table += `<td>${ataquesDobleDanio[i] ? `<img src="img/tiposPokemon/${ataquesDobleDanio[i].name}.webp" alt="${ataquesDobleDanio[i].name}">${ataquesDobleDanio[i].name}` : ''}</td>`;
+                table += `<td>${ataquesInmunes[i] ? `<img src="img/tiposPokemon/${ataquesInmunes[i].name}.webp" alt="${ataquesInmunes[i].name}">${ataquesInmunes[i].name}` : ''}</td>`;
+                table += `<td>${ataquesMitadDanio[i] ? `<img src="img/tiposPokemon/${ataquesMitadDanio[i].name}.webp" alt="${ataquesMitadDanio[i].name}">${ataquesMitadDanio[i].name}` : ''}</td>`;
+                table += "</tr>";
+            }
+
+            table += "</table>";
+            divDefensa.innerHTML += table;
+        }
+
+
+        function obtenerinmuneAtaque(data) {
+            let inmuneAtaca = data.damage_relations.no_damage_to
+            console.log(`A que no hace daño`)
+            let arrayInmuneAtaca = []
+            inmuneAtaca.forEach(element => {
+                arrayInmuneAtaca.push(element)
+            });
+            return arrayInmuneAtaca
+        }
+
+        function obtenerdobleDañoAtaca(data) {
+            let dobleDañoAtaca = data.damage_relations.double_damage_to
+            console.log("Le hace x2:")
+            let arraydobleDañoAtaca = [];
+            dobleDañoAtaca.forEach(element => {
+                arraydobleDañoAtaca.push(element)
+            });
+            return arraydobleDañoAtaca;
+        }
+
+        function obtenermitadDañoAtaca(data) {
+            let mitadDañoAtaca = data.damage_relations.half_damage_to
+            console.log("Le hace /2")
+            let arraymitadDañoAtaca = []
+            mitadDañoAtaca.forEach(element => {
+                arraymitadDañoAtaca.push(element)
+            });
+            return arraymitadDañoAtaca;
+        }  
+
+        function obtenerinmuneDefensa(data) {
+            let inmuneDefensa = data.damage_relations.no_damage_from
+            console.log(`De quien no recibe daño`)
+            let arrayInmuneDañoDefensa = []
+            inmuneDefensa.forEach(element => {
+                arrayInmuneDañoDefensa.push(element)
+            });
+            return arrayInmuneDañoDefensa
+        }
+
+        function obtenerdobleDañoDefensa(data) {
+            let dobleDañoDefensa = data.damage_relations.double_damage_from
+            console.log("Come x2:")
+            let arrayDobleDañoDefensa = []
+            dobleDañoDefensa.forEach(element => {
+                arrayDobleDañoDefensa.push(element)
+            });
+            return arrayDobleDañoDefensa
+        }
+
+        function obtenermitadDañoDefensa(data) {
+            let mitadDañoDefensa = data.damage_relations.half_damage_from
+            console.log("Come /2")
+            let arraymitadDañoDefensa = []
+            mitadDañoDefensa.forEach(element => {
+                arraymitadDañoDefensa.push(element)
+            });
+            return arraymitadDañoDefensa
+        }
+
+        function rellenarSelect(){
+            let selectTipos = document.getElementById("selectTipos")
+            fetch(`https://pokeapi.co/api/v2/type/`)
+                .then(response => {
+                    if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+
+                    let resultados = data.results
+                    resultados.forEach(element => {
+                        let opcion = document.createElement("option")
+                        opcion.value = element.name
+                        opcion.textContent = element.name
+                        selectTipos.appendChild(opcion)
+                    });
+
+                })
+                .catch(error => {
+            
+                    console.error('Hubo un problema con la solicitud: ', error);
+                });
+        }
+
+        let selectTipos = document.getElementById("selectTipos")
+
+        selectTipos.addEventListener("change",(elEvento)=>{
+            let valorSeleccionado = event.target.value;
+            limpiarTablaAnterior();
+            crearTabla(valorSeleccionado)
+        })
+
+        function limpiarTablaAnterior() {
+            divAtaque.innerHTML = ""; 
+            divDefensa.innerHTML=""
+        }
+    </script>
+</body>
+
+</html>
