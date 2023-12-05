@@ -110,8 +110,9 @@ table{
 }
 
 #selectTipos{
-    width: 100px;
+    width: 200px;
     height: 50px;
+    text-align: center;
 }
 table img{
     margin-right: 10px;
