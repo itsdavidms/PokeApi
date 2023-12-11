@@ -57,7 +57,7 @@
 #logoimg {
     max-width: 100%; /* Asegura que la imagen no se desborde del contenedor */
     height: auto; /* Permite que la altura se ajuste automáticamente */
-    height: 150px;
+    height: 180px;
     border: 5px solid white;
 }
 h1 {
